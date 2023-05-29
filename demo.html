@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TITLE</title>
+        <link rel="stylesheet" href="mystyle.css"><!--參照css-->
+    </head>
+    <body>
+        <div>
+            <label>Please enter a NT dollar and we will transmit it into USD, EUR, JPY, KRW and AUD.</label>
+            <br>
+            <input id="NT" type="text" placeholder="ex:100" value=""><!--讀取輸入的新台幣-->
+            <br><br>
+            <button id="submit" type="button" onclick="loadDoc()">Submit</button><!--執行-->
+            <input id="reset" type="button" onclick="window.location.reload()" value="Reset"><!--重新整理-->
+            <p>Result:</p><p class="summary"></ul></p>
+            
+        </div>
+        <script>
+            function loadDoc(){
+                const xhttp = new XMLHttpRequest();
+
+                xhttp.onload=function(){
+                    myFunction(this);
+                }
+
+                xhttp.open("GET","./rate.xml");
+                xhttp.send();
+            }/*讀取xml，但我好像讀不到：（ */
+
+            var summary = document.querySelector('.summary');
+            function myFunction(xml){
+                const xmlDoc=xml.responseXML;
+                const x=xmlDoc.getElementByTagName("rate");
+                var result='';
+                if(isNaN(document.getElementById('NT').value) | parseInt(document.getElementById('NT').value)<0)
+                {
+                    alert('Please enter valid value.');
+                }else{
+                    var nt=parseInt(document.getElementById('NT').value);
+                var usd=nt*x.getElementByTagName("USD");
+                var eur=nt*x.getElementByTagName("EUR");
+                var jpy=nt*x.getElementByTagName("JPY");
+                var krw=nt*x.getElementByTagName("KRW");
+                var aud=nt*x.getElementByTagName("AUD");
+                result="USD:"+usd+"EUR:"+eur+"JPY:"+jpy+"KRW:"+krw+"AUD:"+aud;
+                summary.innerHTML=result;
+                }
+            }/*讀取xml的資料後進行運算，但我讀不到所以算不出來：（ */
+        </script>
+    </body>
+</html>

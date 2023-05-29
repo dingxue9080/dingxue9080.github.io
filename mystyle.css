@@ -1,0 +1,17 @@
+p{
+    background-color: bisque;
+}
+div{
+    background-color: burlywood;
+}
+p:hover{
+    opacity: 0.5;
+}
+body{
+    background-color: ghostwhite;
+    text-align: center;
+}
+::selection{
+    background-color: darkslategrey;
+    color: darkseagreen;
+}
